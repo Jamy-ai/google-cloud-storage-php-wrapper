@@ -422,7 +422,7 @@ class GoogleCloudStorage {
 	
 	public function object_download( $destination ) {
 	
-		return $this->$object->downloadToFile( $destination );
+		return $this->object->downloadToFile( $destination );
 	
 	}
 	
@@ -486,6 +486,15 @@ class GoogleCloudStorage {
 	
 	}
 
+	public function bucket_object_get( $name ) {
+		$this->object = $this->bucket->object( $name );
+		return $this->object;
+	}
+
+	public function bucket_copy_object($source, $destination) {
+		$this->object = $this->bucket_object_get($source);
+		return $this->object->copy($this->bucket_id, ["name" => $destination, "predefinedAcl" => "publicRead"]);
+	}
 }
 
 
